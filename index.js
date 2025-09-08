@@ -1,0 +1,18 @@
+import { info } from "./logger.js";
+import { compile, normalizeUrls, parseHost, parseKeys, parsePort, parseUrls } from "./parser.js";
+import Server from "./server.js";
+
+const urls = compile(normalizeUrls(parseUrls()), parseKeys());
+const host = parseHost();
+const port = parsePort();
+
+info("Preparing... ");
+urls.map(({ url, key }, index) => {
+  info(` - [${index + 1}]`, url, key ? "(with key)" : "(no key)");
+});
+
+new Server({
+  urls,
+  host,
+  port,
+}).run();
