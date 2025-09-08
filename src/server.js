@@ -3,7 +3,6 @@ import { error, info } from "./logger.js";
 import path from "path";
 import indexHtml from "./index.html.js";
 
-
 export default class Server {
   #urls;
   #host;
