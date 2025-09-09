@@ -1,4 +1,4 @@
-# MultiLlama
+# multillama
 
 A Node.js proxy server that aggregates multiple LLM (Large Language Model) endpoints into a single OpenAI-compatible API interface. This allows you to access models from different providers through one unified endpoint.
 
