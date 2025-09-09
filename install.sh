@@ -28,18 +28,22 @@ chmod +x ~/.multillama/multillama
 # ~/.profile
 if [ -f ~/.bash_profile ]; then
     echo 'export PATH="$PATH:$HOME/.multillama"' >> ~/.bash_profile
-    source ~/.bash_profile
+    echo "Executable installed to ~/.bash_profile"
+    echo "Type 'source ~/.bash_profile' or restart your terminal to apply the changes."
 elif [ -f ~/.bashrc ]; then
     echo 'export PATH="$PATH:$HOME/.multillama"' >> ~/.bashrc
-    source ~/.bashrc
+    echo "Executable installed to ~/.bashrc"
+    echo "Type 'source ~/.bashrc' or restart your terminal to apply the changes."
 elif [ -f ~/.zshrc ]; then
     echo 'export PATH="$PATH:$HOME/.multillama"' >> ~/.zshrc
-    source ~/.zshrc
+    echo "Executable installed to ~/.zshrc"
+    echo "Type 'source ~/.zshrc' or restart your terminal to apply the changes."
 elif [ -f ~/.profile ]; then
     echo 'export PATH="$PATH:$HOME/.multillama"' >> ~/.profile
-    source ~/.profile
+    echo "Executable installed to ~/.profile"
+    echo "Type 'source ~/.profile' or restart your terminal to apply the changes."
 else
-    echo "Could not find a shell profile file to update. Please add ~/.multillama to your PATH manually."
+    echo "No profile file found. Please add 'export PATH=\"\$PATH:\$HOME/.multillama\"' to your shell profile manually."
     exit
 fi
 
