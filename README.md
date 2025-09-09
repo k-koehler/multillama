@@ -2,6 +2,12 @@
 
 A Node.js proxy server that aggregates multiple LLM (Large Language Model) endpoints into a single OpenAI-compatible API interface. This allows you to access models from different providers through one unified endpoint.
 
+## Install
+
+```
+curl https://raw.githubusercontent.com/k-koehler/multillama/refs/heads/master/install.sh | bash
+```
+
 ## Features
 
 - **Multi-endpoint aggregation**: Connect to multiple LLM API endpoints

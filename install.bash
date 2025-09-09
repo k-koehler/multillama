@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# check for existing install and remove
+if [ -d ~/.multillama ]; then
+    echo "Existing installation found at ~/.multillama, removing it."
+    rm -rf ~/.multillama
+    # remove from profile files
+    if [ -f ~/.bash_profile ]; then
+        sed -i '/export PATH="\$PATH:\$HOME\/.multillama"/d' ~/.bash_profile
+    fi
+    if [ -f ~/.bashrc ]; then
+        sed -i '/export PATH="\$PATH:\$HOME\/.multillama"/d' ~/.bashrc
+    fi
+    if [ -f ~/.zshrc ]; then
+        sed -i '/export PATH="\$PATH:\$HOME\/.multillama"/d' ~/.zshrc
+    fi
+    if [ -f ~/.profile ]; then
+        sed -i '/export PATH="\$PATH:\$HOME\/.multillama"/d' ~/.profile
+    fi
+    echo "Previous installation removed."
+fi
+
 # check for node 18+
 if ! command -v node &> /dev/null
 then
