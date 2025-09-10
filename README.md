@@ -5,7 +5,7 @@ A Node.js proxy server that aggregates multiple LLM (Large Language Model) endpo
 ## Install
 
 ```
-curl https://raw.githubusercontent.com/k-koehler/multillama/refs/heads/master/install.sh | bash
+curl https://raw.githubusercontent.com/k-koehler/multillama/refs/heads/master/install.bash | bash
 ```
 
 ## Features
