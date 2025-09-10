@@ -7,15 +7,18 @@ export default class Server {
   #urls;
   #host;
   #port;
+  #apiKey;
 
   constructor({
     urls,
     host,
     port,
+    apiKey
   }) {
     this.#urls = urls;
     this.#host = host;
     this.#port = port;
+    this.#apiKey = apiKey;
   }
 
   #cached = null;
@@ -57,6 +60,20 @@ export default class Server {
 
   run() {
     const server = http.createServer(async (req, res) => {
+      // Check API key for all API endpoints (v1 routes)
+      if (this.#apiKey && req.url.startsWith("/v1/")) {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+          res.writeHead(401).end("Authorization header required");
+          return;
+        }
+        const token = authHeader.substring(7);
+        if (token !== this.#apiKey) {
+          res.writeHead(401).end("Invalid API key");
+          return;
+        }
+      }
+
       const handleV1Models = async () => {
         const models = await this.#fetchModels();
         res.writeHead(200, { "Content-Type": "application/json" });
