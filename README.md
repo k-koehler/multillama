@@ -18,7 +18,7 @@ Do you have multiple OpenAI Compatible servers and want them unified into a sing
 ## Example usage
 
 ```bash
-multillama -port 3000 \
+multillama --port 3000 \
   --url https://api.openai.com/ --key your-openai-key \
   --url https://api.anthropic.com/ --key your-anthropic-key \
   --url http://localhost:11434/ --key null
