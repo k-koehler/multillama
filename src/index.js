@@ -1,4 +1,4 @@
-import { info } from "./logger.js";
+import { error, info } from "./logger.js";
 import { compile, normalizeUrls, parseHost, parseKeys, parsePort, parseUrls } from "./parser.js";
 import Server from "./server.js";
 
@@ -16,3 +16,11 @@ new Server({
   host,
   port,
 }).run();
+
+process.on("uncaughtException", (err) => {
+  error("Uncaught Exception:", err);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  error("Unhandled Rejection at:", promise, "reason:", reason);
+});

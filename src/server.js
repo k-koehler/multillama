@@ -23,15 +23,31 @@ export default class Server {
     const models = [];
     await Promise.all(this.#urls.map(
       async ({ url, key }) => {
-        const modelFetchResponse = await fetch(path.join(url, "models"), {
-          headers: key ? { Authorization: `Bearer ${key}` } : {},
-        });
-        if (!modelFetchResponse.ok) {
-          return null;
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000);
+        try {
+          const modelFetchResponse = await fetch(
+            path.join(url, "models"),
+            {
+              headers: key ? { Authorization: `Bearer ${key}` } : {},
+              signal: controller.signal,
+            }
+          );
+          if (!modelFetchResponse.ok) {
+            return null;
+          }
+          const { data } = await modelFetchResponse.json();
+          models.push(...data.map((m) => ({ ...m, __multillama_url: url })));
+          info(`Fetched ${data.length} models from ${url}`);
+        } catch (err) {
+          if (err.name === "AbortError") {
+            info(`Fetch from ${url} timed out after 5s`);
+          } else {
+            error(`Error fetching models from ${url}:`, err);
+          }
+        } finally {
+          clearTimeout(timeout);
         }
-        const { data } = await modelFetchResponse.json();
-        models.push(...data.map((m) => ({ ...m, __multillama_url: url })));
-        info(`Fetched ${data.length} models from ${url}`);
       }
     ));
     this.#cached = models;
